@@ -1,3 +1,6 @@
+Supply Chain Management for Pharma using Blockchain Technology. Main theme of this project is to provide transparency of the product to the end user. For that purpose we are using QR Code technology for ease of access. For this we used Ethereum as Blockchain platform and solidity for writing smart contracts, web3 for integration, truffle as framework for test server which is Ganache.
+
+
 ## Pharma Supply Chain Execution Guide:
 
 #### Step-1:
