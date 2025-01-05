@@ -5,7 +5,7 @@ Installation of required setup,
 
 Ganache, Node.js from google chrome.
 
-Ganache: https://archive.trufflesuite.com/ganache/
+Ganache: https://archive.trufflesuite.com/ganache/  <br>
 Node.js: https://nodejs.org/en
 
 #### Step-2:
