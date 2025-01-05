@@ -1,0 +1,64 @@
+/* Track.css */
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Main container */
+.track-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h3 {
+    color: #007bff;
+}
+
+/* Table styles */
+.table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table th {
+    background-color: #7c73a6;
+}
+
+/* Button styles */
+.btn {
+    margin-top: 10px;
+}
+
+/* QR Code container styles */
+.qr-code-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Loader styles */
+.wait {
+    text-align: center;
+    color: #868e96;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    h3 {
+        font-size: 1.5rem;
+    }
+}
