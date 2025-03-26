@@ -887,8 +887,7 @@
 
 "@zondax/filecoin-signing-tools@github:trufflesuite/filecoin-signing-tools-js":
   version "0.2.0"
-  resolved "https://codeload.github.com/trufflesuite/filecoin-signing-tools-js/tar.gz/2786fdb8a2b71bd1c7789c0701da41bb644a098f"
-  integrity sha512-/EEqUgpe4dQm2FC9Oj79OWC1K6Uy5QJ6YgyozQzUF4Bnu7mPsyBWFl1Y83sYbKX6olEWYauOyqjYV8uxTY7cGA==
+  resolved "git+ssh://git@github.com/trufflesuite/filecoin-signing-tools-js.git#2786fdb8a2b71bd1c7789c0701da41bb644a098f"
   dependencies:
     axios "0.26.1"
     base32-decode "^1.0.0"

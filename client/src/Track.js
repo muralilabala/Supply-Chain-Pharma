@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+
+
 import { useNavigate } from "react-router-dom";
 import Web3 from "web3";
 import { QRCodeCanvas } from 'qrcode.react';
@@ -42,6 +44,8 @@ function Track() {
     }
   };
   const loadBlockchaindata = async () => {
+
+
     setloader(true);
     const web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
@@ -59,6 +63,8 @@ function Track() {
       const medCtr = await supplychain.methods.medicineCtr().call();
       const med = {};
       const medStage = [];
+
+
       for (i = 0; i < medCtr; i++) {
         med[i + 1] = await supplychain.methods.MedicineStock(i + 1).call();
         medStage[i + 1] = await supplychain.methods.showStage(i + 1).call();
@@ -101,12 +107,27 @@ function Track() {
       </div>
     );
   }
+  const timestamptoDate = (tt) => {
+    if (tt === "0") {
+      return "Not Available";
+    }
+    const productionDate = new Date(tt * 1000); // Multiply by 1000 to convert seconds to milliseconds
+
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedProductionDate = productionDate.toLocaleDateString(
+      "en-US",
+      options
+    );
+    return formattedProductionDate;
+  };
 
 
   if (TrackTillSold) {
     const rmdata = {
       id: MED[ID]?.id,
       name: MED[ID]?.name,
+      Manufacture_date : timestamptoDate(MED[ID]?.productionDate),
+      Expiry_date : timestamptoDate(MED[ID]?.expiryDate),
       description: MED[ID]?.description,
       currentStage: MedStage[ID],
       Raw_Material_Supplied_by : RMS[MED[ID].RMSid].name,
@@ -120,6 +141,8 @@ function Track() {
     };
     const rmstring = `Name: ${rmdata.name}\n` +
             `Description: ${rmdata.description}\n` +
+            `Manufacture Date: ${rmdata.Manufacture_date}\n` +
+            `Expiry Date: ${rmdata.Expiry_date}\n` +
             `Current Stage: ${rmdata.currentStage}\n` +
             `Raw Material Supplied By: ${rmdata.Raw_Material_Supplied_by}\n` +
             `Place: ${rmdata.RPlace}\n` +
@@ -150,6 +173,16 @@ function Track() {
           <span>
             <b>Description: </b>
             {MED[ID].description}
+          </span>
+          <br />
+          <span>
+            <b>Manufacture date: </b>
+            {rmdata.Manufacture_date}
+          </span>
+          <br />
+          <span>
+            <b>Expiry date: </b>
+            {rmdata.Expiry_date}
           </span>
           <br />
           <span>
@@ -230,7 +263,7 @@ function Track() {
           <span>&#10132;</span>
           <article className="col-3">
             <h4>
-              <u>Sold</u>
+              Medicine Sold to Consumer
             </h4>
           </article>
           <div className="qr-code-container"> 
@@ -263,6 +296,8 @@ function Track() {
       id: MED[ID]?.id,
       name: MED[ID]?.name,
       description: MED[ID]?.description,
+      Manufacture_date : timestamptoDate(MED[ID]?.productionDate),
+      Expiry_date : timestamptoDate(MED[ID]?.expiryDate),
       currentStage: MedStage[ID],
       Raw_Material_Supplied_by : RMS[MED[ID].RMSid].name,
       RPlace : RMS[MED[ID].RMSid].place,
@@ -275,6 +310,8 @@ function Track() {
     };
     const rmstring = `Id: ${rmdata.id}\n` + `Name: ${rmdata.name}\n` +
             `Description: ${rmdata.description}\n` +
+            `Manufacture Date: ${rmdata.Manufacture_date}\n` +
+            `Expiry Date: ${rmdata.Expiry_date}\n` +
             `Current Stage: ${rmdata.currentStage}\n` +
             `Raw Material Supplied By: ${rmdata.Raw_Material_Supplied_by}\n` +
             `Place: ${rmdata.RPlace}\n` +
@@ -304,6 +341,16 @@ function Track() {
           <span>
             <b>Description: </b>
             {MED[ID].description}
+          </span>
+          <br />
+          <span>
+            <b>Manufacture date: </b>
+            {rmdata.Manufacture_date}
+          </span>
+          <br />
+          <span>
+            <b>Expiry date: </b>
+            {rmdata.Expiry_date}
           </span>
           <br />
           <span>
@@ -411,6 +458,8 @@ function Track() {
       id: MED[ID]?.id,
       name: MED[ID]?.name,
       description: MED[ID]?.description,
+      Manufacture_date : timestamptoDate(MED[ID]?.productionDate),
+      Expiry_date : timestamptoDate(MED[ID]?.expiryDate),
       currentStage: MedStage[ID],
       Raw_Material_Supplied_by : RMS[MED[ID].RMSid].name,
       RPlace : RMS[MED[ID].RMSid].place,
@@ -423,6 +472,8 @@ function Track() {
     };
     const rmstring = `Id: ${rmdata.id}\n` + `Name: ${rmdata.name}\n` +
             `Description: ${rmdata.description}\n` +
+            `Manufacture Date: ${rmdata.Manufacture_date}\n` +
+            `Expiry Date: ${rmdata.Expiry_date}\n` +
             `Current Stage: ${rmdata.currentStage}\n` +
             `Raw Material Supplied By: ${rmdata.Raw_Material_Supplied_by}\n` +
             `Place: ${rmdata.RPlace}\n` +
@@ -450,6 +501,16 @@ function Track() {
           <span>
             <b>Description: </b>
             {MED[ID].description}
+          </span>
+          <br />
+          <span>
+            <b>Manufacture date: </b>
+            {rmdata.Manufacture_date}
+          </span>
+          <br />
+          <span>
+            <b>Expiry date: </b>
+            {rmdata.Expiry_date}
           </span>
           <br />
           <span>
@@ -540,6 +601,8 @@ function Track() {
       id: MED[ID]?.id,
       name: MED[ID]?.name,
       description: MED[ID]?.description,
+      Manufacture_date : timestamptoDate(MED[ID]?.productionDate),
+      Expiry_date : timestamptoDate(MED[ID]?.expiryDate),
       currentStage: MedStage[ID],
       Raw_Material_Supplied_by : RMS[MED[ID].RMSid].name,
       RPlace : RMS[MED[ID].RMSid].place,
@@ -548,6 +611,8 @@ function Track() {
     };
     const rmstring = `id: ${rmdata.id}\n` + `Name: ${rmdata.name}\n` +
             `Description: ${rmdata.description}\n` +
+            `Manufacture_date: ${rmdata.Manufacture_date}\n` +
+            `Expiry_date: ${rmdata.Expiry_date}\n` +
             `Current Stage: ${rmdata.currentStage}\n` +
             `Raw Material Supplied By: ${rmdata.Raw_Material_Supplied_by}\n` +
             `Place: ${rmdata.RPlace}\n` +
@@ -573,6 +638,16 @@ function Track() {
           <span>
             <b>Description: </b>
             {MED[ID].description}
+          </span>
+          <br />
+          <span>
+            <b>Manufacture date: </b>
+            {rmdata.Manufacture_date}
+          </span>
+          <br />
+          <span>
+            <b>Expiry date: </b>
+            {rmdata.Expiry_date}
           </span>
           <br />
           <span>
@@ -615,6 +690,7 @@ function Track() {
               <b>Place: </b>
               {MAN[MED[ID].MANid].place}
             </p>
+
           </article>
           <div className="qr-code-container"> 
                     <h4>QR Code:</h4>

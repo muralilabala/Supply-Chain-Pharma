@@ -4,6 +4,7 @@ import Web3 from "web3";
 import SupplyChainABI from "./artifacts/SupplyChain.json";
 import "./Supply.css";
 
+
 function Supply() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -17,6 +18,7 @@ function Supply() {
   const [MED, setMED] = useState();
   const [MedStage, setMedStage] = useState();
   const [ID, setID] = useState();
+  const [expdate, setExpdate] = useState();
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -72,6 +74,9 @@ function Supply() {
   const handlerChangeID = (event) => {
     setID(event.target.value);
   };
+  const handlerChangeDate = (event) => {
+    setExpdate(new Date(event.target.value));
+  }
   const handlerSubmitRMSsupply = async (event) => {
     event.preventDefault();
     try {
@@ -88,8 +93,10 @@ function Supply() {
   const handlerSubmitManufacturing = async (event) => {
     event.preventDefault();
     try {
+      const expirydate = expdate.getTime() / 1000;
+      console.log(expirydate);
       var reciept = await SupplyChain.methods
-        .Manufacturing(ID)
+        .Manufacturing(ID, expirydate)
         .send({ from: currentaccount });
       if (reciept) {
         loadBlockchaindata();
@@ -198,7 +205,7 @@ function Supply() {
         </button>
       </form>
       <hr />
-      <br />
+      <br/>
       <h5>
         <b>Step 2: Manufacture</b>(Only a registered Manufacturer can perform
         this step):-
@@ -211,6 +218,15 @@ function Supply() {
           placeholder="Enter Medicine ID"
           required
         />
+        <p>Enter Expiry Date: </p>
+        <input
+          className="form-control-sm"
+          type="date"
+          onChange={handlerChangeDate}
+          placeholder="Enter expiry date"
+          required
+        />
+        <br />
         <button
           className="btn btn-outline-success btn-sm"
           onSubmit={handlerSubmitManufacturing}

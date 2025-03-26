@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
 contract SupplyChain {
@@ -10,13 +9,6 @@ contract SupplyChain {
         Owner = msg.sender;
     }
 
-    //Roles (flow of pharma supply chain)
-    // RawMaterialSupplier; //This is where Manufacturer will get raw materials to make medicines
-    // Manufacturer;  //Various WHO guidelines should be followed by this person
-    // Distributor; //This guy distributes the medicines to retailers
-    // Retailer; //Normal customer buys from the retailer
-
-    //modifier to make sure only the owner is using the function
     modifier onlyByOwner() {
         require(msg.sender == Owner);
         _;
@@ -31,7 +23,6 @@ contract SupplyChain {
         Retail,
         sold
     }
-    //using this we are going to track every single medicine the owner orders
 
     //Medicine count
     uint256 public medicineCtr = 0;
@@ -54,6 +45,8 @@ contract SupplyChain {
         uint256 DISid; //id of the distributor for this particular medicine
         uint256 RETid; //id of the retailer for this particular medicine
         STAGE stage; //current medicine stage
+        uint256 productionDate; //date of production
+        uint256 expiryDate; //date of expiry
     }
 
     //To store all the medicines on the blockchain
@@ -200,13 +193,17 @@ contract SupplyChain {
     }
 
     //To manufacture medicine
-    function Manufacturing(uint256 _medicineID) public {
+    function Manufacturing(uint256 _medicineID, uint256 _expdate) public {
         require(_medicineID > 0 && _medicineID <= medicineCtr);
         uint256 _id = findMAN(msg.sender);
         require(_id > 0);
         require(MedicineStock[_medicineID].stage == STAGE.RawMaterialSupply);
+        require(_expdate > block.timestamp);
+
         MedicineStock[_medicineID].MANid = _id;
         MedicineStock[_medicineID].stage = STAGE.Manufacture;
+        MedicineStock[_medicineID].productionDate = block.timestamp;
+        MedicineStock[_medicineID].expiryDate = _expdate;
     }
 
     //To check if Manufacturer is available in the blockchain
@@ -281,7 +278,9 @@ contract SupplyChain {
             0,
             0,
             0,
-            STAGE.Init
+            STAGE.Init,
+            0,
+            0
         );
     }
 }

@@ -30,6 +30,7 @@ h3 {
 }
 
 .table th, .table td {
+    background-color: #ffffff;
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #dee2e6;
